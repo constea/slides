@@ -399,7 +399,7 @@
 <!-- Present overlay -->
 <div class="present" id="present">
   <div id="present-stage"></div>
-  <div class="present-hint" id="present-hint">← → листать&nbsp;·&nbsp;F полный экран&nbsp;·&nbsp;Esc выход</div>
+  <div class="present-hint" id="present-hint">← → листать&nbsp;&nbsp;F полный экран&nbsp;&nbsp;Esc выход</div>
   <div class="present-progress" id="present-progress"><i></i></div>
   <div class="present-hud">
     <button class="pbtn" id="present-prev" title="Назад">‹</button>
@@ -427,12 +427,12 @@
         <div class="kr"><span>Текст</span><kbd>T</kbd></div>
         <div class="kr"><span>Формула (LaTeX)</span><kbd>F</kbd></div>
         <div class="kr"><span>Изображение / GIF</span><kbd>I</kbd></div>
-        <div class="kr"><span>Вставить медиа</span><span style="color:var(--muted)">буфер · перетаскивание</span></div>
+        <div class="kr"><span>Вставить медиа</span><span style="color:var(--muted)">буфер  перетаскивание</span></div>
 
         <h3>Элемент</h3>
         <div class="kr"><span>Перемещать по сетке</span><span><kbd>←</kbd><kbd>↑</kbd><kbd>↓</kbd><kbd>→</kbd></span></div>
         <div class="kr"><span>След. / пред. элемент</span><span><kbd>Tab</kbd> <kbd>⇧Tab</kbd></span></div>
-        <div class="kr"><span>Редактировать содержимое</span><span><kbd>Enter</kbd> · строка снизу</span></div>
+        <div class="kr"><span>Редактировать содержимое</span><span><kbd>Enter</kbd>  строка снизу</span></div>
         <div class="kr"><span>Выйти из редактирования</span><span><kbd>Esc</kbd> <kbd>⇧↵</kbd></span></div>
         <div class="kr"><span>Размер кегля</span><span><kbd>=</kbd> <kbd>−</kbd></span></div>
         <div class="kr"><span>Высота блока: меньше / больше</span><span><kbd>.</kbd> <kbd>/</kbd></span></div>
@@ -713,7 +713,7 @@ function renderStage(){
   });
   if(!s.elements.length){
     const hint = document.createElement('div'); hint.className='stage-empty';
-    hint.innerHTML = 'Пустой слайд<small>Добавьте элемент: <b>H</b> заголовок · <b>T</b> текст · <b>F</b> формула · <b>I</b> изображение.<br>Изображение можно перетащить на холст или вставить из буфера (⌘/Ctrl V).</small>';
+    hint.innerHTML = 'Пустой слайд<small>Добавьте элемент: <b>H</b> заголовок  <b>T</b> текст  <b>F</b> формула  <b>I</b> изображение.<br>Изображение можно перетащить на холст или вставить из буфера (⌘/Ctrl V).</small>';
     stage.appendChild(hint);
   }
   if(state.slideNumbers) stage.appendChild(slideNumberNode(state.current));
@@ -859,8 +859,8 @@ function renderEditbar(){
   editbar.innerHTML =
     '<div class="eb-input-wrap"><textarea class="eb-input'+(isMath?' mono':'')+'" id="eb-input" spellcheck="'+(isMath?'false':'true')+'" placeholder="'+ph+'"></textarea></div>'+
     (isMath
-      ? '<div class="eb-hint"><code>\\frac{a}{b}</code> · <code>\\sum_{i=1}^{n}</code> · <code>\\sqrt{x}</code><br>Shift ↵ — выйти</div>'
-      : '<div class="eb-hint">↵ — перенос строки · Shift ↵ — выйти</div>');
+      ? '<div class="eb-hint"><code>\\frac{a}{b}</code>  <code>\\sum_{i=1}^{n}</code>  <code>\\sqrt{x}</code><br>Shift ↵ — выйти</div>'
+      : '<div class="eb-hint">↵ — перенос строки  Shift ↵ — выйти</div>');
   const inp = $('#eb-input', editbar);
   inp.value = isMath ? (el.latex||'') : (el.text||'');
   inp.dataset.id = el.id;
@@ -937,7 +937,7 @@ function renderInspector(){
   }
 
   // Position group
-  html += '<div class="group"><div class="group-title">Положение · сетка</div><div class="pos-grid">'+
+  html += '<div class="group"><div class="group-title">Положение  сетка</div><div class="pos-grid">'+
     posCell('X','gx',el.gx)+posCell('Y','gy',el.gy)+posCell('Ш','gw',el.gw)+posCell('В','gh',el.gh)+
     '</div></div>';
 
@@ -1368,7 +1368,7 @@ function newDocument(){
   state.slides = [ newSlide() ];
   state.current = 0; state.selected = null;
   renderAll();
-  toast('Новый документ · ⌘/Ctrl Z вернёт прежний');
+  toast('Новый документ  ⌘/Ctrl Z вернёт прежний');
 }
 function deleteSlide(i){
   if(state.slides.length<=1){ toast('Нельзя удалить единственный слайд'); return; }
@@ -1493,7 +1493,7 @@ document.addEventListener('keydown', e=>{
   }
 
   // Resize selected element with the physical . and / keys (layout-independent):
-  //   .  height −   ·   /  height +   ·   ⇧.  width −   ·   ⇧/  width +
+  //   .  height −      /  height +      ⇧.  width −      ⇧/  width +
   if(!meta && state.selected && (e.code==='Period'||e.code==='Slash')){
     e.preventDefault();
     if(e.code==='Period'){ e.shiftKey ? resizeSelected(-1,0) : resizeSelected(0,-1); }
@@ -1546,7 +1546,7 @@ function toggleAutoFit(){
   if(state.autoFit){
     pushHistory();
     autoFitAll();
-    toast('Авторазмер включён · ширина и высота под содержимое');
+    toast('Авторазмер включён  ширина и высота под содержимое');
   } else {
     toast('Авторазмер выключен');
   }
@@ -1684,7 +1684,7 @@ function exportHTML(){
   try{
     const html = buildExportHTML();
     download('presentation.html', html, 'text/html');
-    toast('HTML экспортирован · все медиа внутри');
+    toast('HTML экспортирован  все медиа внутри');
   }catch(err){ console.error(err); toast('Ошибка экспорта HTML'); }
 }
 
